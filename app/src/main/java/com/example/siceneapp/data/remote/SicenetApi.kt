@@ -10,4 +10,10 @@ interface SicenetApi {
     suspend fun login(
         @Body body: RequestBody
     ): ResponseBody
+    @Headers(
+        "Content-Type: text/xml; charset=utf-8",
+        "SOAPAction: \"http://tempuri.org/getAlumnoAcademicoWithLineamiento\""
+    )
+    @POST("ws/wsalumnos.asmx")
+    suspend fun getAlumnoAcademicoWithLineamiento(@Body body: RequestBody): ResponseBody
 }

@@ -83,7 +83,28 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
+                // --- BOTÓN VER PERFIL ---
+                Button(onClick = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val response: ResponseBody = repository.getPerfil()
+                            val responseText = response.string()
 
+                            runOnUiThread {
+                                Toast.makeText(this@MainActivity, "Perfil obtenido!", Toast.LENGTH_SHORT).show()
+                                println("Perfil XML: $responseText") // Ver XML en Logcat
+                            }
+                        } catch (e: Exception) {
+                            runOnUiThread {
+                                Toast.makeText(this@MainActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                }, modifier = Modifier.fillMaxWidth()) {
+                    Text("Ver Perfil")
+                }
+
+                Spacer(modifier = Modifier.height(16.dp)) // espacio antes del mensaje
                 if (message.isNotEmpty()) {
                     Text(text = message)
                 }
